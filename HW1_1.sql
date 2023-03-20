@@ -1,246 +1,75 @@
-1. ������� ������� employees
-- id. serial,  primary key,
-- employee_name. Varchar(50), not null
-
-create table employees(
-id serial primary key,
-employee_name Varchar(50) not null);
-
-2.��������� ������� employee 70 ��������.
-
-insert into employees (employee_name)
-values ('Reggie Batey'), 
-('Clara Poore'), 
-('Tammy Galindo'), 
-('Rickey Jones'), 
-('Jill Anspach'), 
-('Lacy Racicot'), 
-('David Macias'), 
-('Jessica Manns'), 
-('Amber Holcomb'), 
-('Betty Wells'), 
-('Miguel Fletcher'), 
-('Joseph Hodges'), 
-('Ida Bohannon'), 
-('Cindy Merrifield'), 
-('Mary Dowell'), 
-('Marie Thomas'), 
-('Donald Fierro'), 
-('Anna Wick'), 
-('Robert Harian'), 
-('Michael Mark'), 
-('Lucius Patterson'), 
-('Lorna Rose'), 
-('Karen Santiago'), 
-('Peggy Beachler'), 
-('Chester Baird'), 
-('Ronda Colley'), 
-('Robert Chapman'), 
-('Sandra Hibbard'), 
-('Steven Pagano'), 
-('Ramona Russell'), 
-('Ryan Morgan'), 
-('Shannon Daugherty'), 
-('Charlene Little'), 
-('Steve Lewandowski'), 
-('Donnie Shoemaker'), 
-('Veronica Treto'), 
-('Jonathon Belanger'), 
-('William Hughes'), 
-('Courtney Alston'), 
-('Isaac Walters'), 
-('Leon Ashcraft'), 
-('Daniel Patterson'), 
-('Randall Phillips'), 
-('James Williams'), 
-('Nancy Searles'), 
-('Edward Hilliard'), 
-('Joel Vandevelde'), 
-('Nancy Bravo'), 
-('Jesse Clark'), 
-('Gregory Magelssen'), 
-('Ella Cortez'), 
-('Michael Diaz'), 
-('Robert Walsh'), 
-('Valorie Seibert'), 
-('Yoshiko Miller'), 
-('Timothy Johnson'), 
-('Lita Webb'), 
-('Lindsay Barrera'), 
-('Jacqulyn Matthews'), 
-('Lee Rehart'), 
-('Fred Spencer'), 
-('Melinda Webster'), 
-('Shawn Pretti'), 
-('Betty Schaefer'), 
-('Barbara Teets'), 
-('Patricia Tomas'), 
-('Mattie Kelley'), 
-('Mary Yates'), 
-('Andrea Croes'), 
-('Amanda Riley');
-
-3. ������� ������� salary
-- id. Serial  primary key,
-- monthly_salary. Int, not null
-
-create table salary (
-id serial primary key, 
-monthly_salary int not null
+--1.Создать таблицу students и перенести в нее данные из другой базы данных.
+CREATE TABLE public.students (
+	id serial4 NOT NULL,
+	name varchar(50) NOT NULL,
+	email varchar(50) NOT NULL,
+	"password" varchar(50) NOT NULL,
+	created_on timestamp NOT NULL,
+	CONSTRAINT students_email_key UNIQUE (email),
+	CONSTRAINT students_pkey PRIMARY KEY (id)
 );
 
-4. ��������� ������� salary 15 ��������:
-
-insert into salary(monthly_salary) 
-values (1100),(1200),(1300),(1400),(1500),(1600),
-(1700),(1800),(1900),(2000),(2100),(2200),(2300),(2400),(2500);
-
-5.������� ������� employee_salary
-- id. Serial  primary key,
-- employee_id. Int, not null, unique
-- salary_id. Int, not null
-
-create table employee_salary(
-id serial  primary key,
-employee_id Int not null unique,
-salary_id Int not null);
-
-6. ��������� ������� employee_salary 40 ��������:
-- � 10 ����� �� 40 �������� �������������� employee_id
-
-insert into employee_salary (id, employee_id, salary_id)
-values(1,3,7),
-(2,1,4),
-(3,5,9),
-(4,40,13),
-(5,23,4),
-(6,11,2),
-(7,52,10),
-(8,15,13),
-(9,26,4),
-(10,16,1),
-(11,20,7),
-(12,21,1),
-(13,2,1),
-(14,22,3),
-(15,4,5),
-(16,6,7),
-(17,7,10),
-(18,24,12),
-(19,8,14),
-(20,25,15),
-(21,9,14),
-(22,10,20),
-(23,31,22),
-(24,17,18),
-(25,27,19),
-(26,28,20),
-(27,12,21),
-(28,29,22),
-(29,14,23),
-(30,30,1),
-(31,18,2),
-(32,13,3),
-(33,48,4),
-(34,47,5),
-(35,46,6),
-(36,45,7),
-(37,44,8),
-(38,43,9),
-(39,42,10),
-(40,41,11);
-
-7.������� ������� roles
-- id. Serial  primary key,
-- role_name. int, not null, unique
-
-create table roles (
-id serial primary key,
-role_name int unique not null
-);
-
-8. �������� ��� ������ role_name � int �� varchar(30)
-
-alter table roles alter column role_name type varchar(30);
-
-9. ��������� ������� roles 20 ��������:
-
-insert into roles (id, role_name)
-values (1, 'Junior Python developer'),
-(2, 'Middle Python developer'),
-(3, 'Senior Python developer'),
-(4, 'Junior Java developer'),
-(5, 'Middle Java developer'),
-(6, 'Senior Java developer'),
-(7, 'Junior JavaScript developer'),
-(8, 'Middle JavaScript developer'),
-(9, 'Senior JavaScript developer'),
-(10, 'Junior Manual QA engineer'),
-(11, 'Middle Manual QA engineer'),
-(12, 'Senior Manual QA engineer'),
-(13, 'Project Manager'),
-(14, 'Designer'),
-(15, 'HR'),
-(16, 'CEO'),
-(17, 'Sales manager'),
-(18, 'Junior Automation QA engineer'),
-(19, 'Middle Automation QA engineer'),
-(20, 'Senior Automation QA engineer');
-
-10.������� ������� roles_employee
-- id. Serial  primary key,
-- employee_id. Int, not null, unique (������� ���� ��� ������� employees, ���� id)
-- role_id. Int, not null (������� ���� ��� ������� roles, ���� id)
-
-create table roles_employee(
-id Serial  primary key,
-employee_id Int not null unique, 
-role_id Int not null, 
-foreign key (employee_id)
-references employees(id),
-foreign key (role_id)
-references roles(id));
-
-11.��������� ������� roles_employee 40 ��������:
-
-insert into roles_employee(id,employee_id,role_id)
-values(1,7,2),
-(2,20,4),
-(3,3,9),
-(4,5,13),
-(5,23,4),
-(6,11,2),
-(7,10,9),
-(8,22,13),
-(9,21,3),
-(10,34,4),
-(11,6,7),
-(12,12,12),
-(13,9,17),
-(14,1,18),
-(15,4,19),
-(16,8,1),
-(17,15,2),
-(18,25,3),
-(19,17,4),
-(20,64,5),
-(21,19,6),
-(22,14,9),
-(23,18,8),
-(24,16,7),
-(25,31,12),
-(26,32,14),
-(27,33,19),
-(28,24,20),
-(29,2,11),
-(30,13,3),
-(31,41,5),
-(32,43,7),
-(33,44,9),
-(34,46,16),
-(35,45,15),
-(36,50,17),
-(37,58,11),
-(38,56,6),
-(39,54,8),
-(40,49,13);
+-- 1. Вывести все поля и все строки.
+select * from students s ;
+-- 2. Вывести всех студентов в таблице
+select id, name from students s ;
+-- 3. Вывести только Id пользователей
+select id from students s ;
+-- 4. Вывести только имя пользователей
+select name from students s ;
+-- 5. Вывести только email пользователей
+select email from students s ;
+-- 6. Вывести имя и email пользователей
+select name, email from students s ;
+-- 7. Вывести id, имя, email и дату создания пользователей
+select id, name, email, created_on  from students s ;
+-- 8. Вывести пользователей где password 12333
+select * from students s where password = '12333' ;
+-- 9. Вывести пользователей которые были созданы 2021-03-26 00:00:00
+select * from students s where created_on = '2021-03-26 00:00:00';
+-- 10. Вывести пользователей где в имени есть слово Анна
+select * from students s where name like '%Anna%';
+-- 11. Вывести пользователей где в имени в конце есть 8
+select * from students s where name like '%8';
+-- 12. Вывести пользователей где в имени в есть буква а
+select * from students s where name like '%a%';
+-- 13. Вывести пользователей которые были созданы 2021-07-12 00:00:00
+select * from students s where created_on = '2021-07-12 00:00:00';
+-- 14. Вывести пользователей которые были созданы 2021-07-12 00:00:00 и имеют пароль 1m313
+select * from students s where created_on = '2021-07-12 00:00:00' and password = '1m313';
+-- 15. Вывести пользователей которые были созданы 2021-07-12 00:00:00 и у которых в имени есть слово Andrey
+select * from students s where created_on = '2021-07-12 00:00:00' and name like '%Andrey%';
+-- 16. Вывести пользователей которые были созданы 2021-07-12 00:00:00 и у которых в имени есть цифра 8
+select * from students s where created_on = '2021-07-12 00:00:00' and name like '%8%';
+-- 17. Вывести пользователя у которых id равен 110
+select * from students s where id = 110;
+-- 18. Вывести пользователя у которых id равен 153
+select * from students s where id = 153;
+-- 19. Вывести пользователя у которых id больше 140
+select * from students s where id > 140;
+-- 20. Вывести пользователя у которых id меньше 130
+select * from students s where id < 130;
+-- 21. Вывести пользователя у которых id меньше 127 или больше 188
+select * from students s where id < 127 or id > 188;
+-- 22. Вывести пользователя у которых id меньше либо равно 137
+select * from students s where id <= 137;
+-- 23. Вывести пользователя у которых id больше либо равно 137
+select * from students s where id >= 137;
+-- 24. Вывести пользователя у которых id больше 180 но меньше 190
+select * from students s where id >180 and id <190;
+-- 25. Вывести пользователя у которых id между 180 и 190
+select * from students s where id between 180 and 190;
+-- 26. Вывести пользователей где password равен 12333, 1m313, 123313
+select * from students s where password in ('12333', '1m313', '123313');
+-- 27. Вывести пользователей где created_on равен 2020-10-03 00:00:00, 2021-05-19 00:00:00, 2021-03-26 00:00:00
+select * from students s where created_on  in ('2020-10-03 00:00:00', '2021-05-19 00:00:00', '2021-03-26 00:00:00');
+-- 28. Вывести минимальный id 
+select min(id) as id from students s;
+-- 29. Вывести максимальный.
+select max(id) as id from students s;
+-- 30. Вывести количество пользователей
+select count(id) as id from students s;
+-- 31. Вывести id пользователя, имя, дату создания пользователя. Отсортировать по порядку возрастания даты добавления пользоватлеля.
+select id, name, created_on from students s order by created_on ;
+-- 32. Вывести id пользователя, имя, дату создания пользователя. Отсортировать по порядку убывания даты добавления пользоватлеля.
+select id, name, created_on from students s order by created_on desc;
